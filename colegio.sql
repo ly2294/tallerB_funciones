@@ -1,0 +1,131 @@
+-- phpMyAdmin SQL Dump
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 25-10-2017 a las 07:11:45
+-- Versión del servidor: 10.1.21-MariaDB
+-- Versión de PHP: 5.6.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `estudiante`
+--
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `1_primera_b` (IN `par` INT(11), OUT `total` INT(11))  BEGIN
+   SELECT COUNT(*) FROM estudiante WHERE semestre = par INTO total;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `2_segunda_b` (IN `par` INT(11))  BEGIN
+   SELECT codigo, nombre, apellido, email FROM estudiante WHERE semestre = par;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `3_tercera_b` (IN `par` VARCHAR(255))  BEGIN
+   SELECT email FROM estudiante WHERE codigo = par;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `4_cuarta_b` (IN `par` VARCHAR(255))  BEGIN
+   SELECT nombre, email FROM estudiante WHERE email LIKE par;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `5_quinta_b` (IN `par` INT(11))  BEGIN
+   IF par > 0 THEN
+    SELECT nombre, email FROM estudiante ORDER BY nombre DESC;
+   ELSE
+    SELECT nombre, email FROM estudiante ORDER BY nombre ASC;
+   END IF;
+END$$
+
+--
+-- Funciones
+--
+CREATE DEFINER=`root`@`localhost` FUNCTION `1_primera_a` () RETURNS INT(12) BEGIN
+   DECLARE num INT;
+   SELECT COUNT(*) INTO num FROM estudiante;
+   RETURN num;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `2_segunda_a` (`par` VARCHAR(255)) RETURNS VARCHAR(255) CHARSET latin1 BEGIN
+   DECLARE x VARCHAR(255);
+   SET x = (SELECT programa FROM estudiante WHERE codigo = x);
+   RETURN x;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `3_tercera_a` (`par` VARCHAR(255)) RETURNS INT(11) BEGIN
+   DECLARE x INT;
+   SET x = (SELECT COUNT(*) FROM estudiante WHERE email LIKE par);
+   RETURN x;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `4_cuarta_a` (`par` VARCHAR(255)) RETURNS VARCHAR(255) CHARSET latin1 BEGIN
+   DECLARE x  VARCHAR(255);
+   SET x = (SELECT nombre FROM estudiante WHERE email = par);
+   RETURN x;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `5_quinta_a` (`par` INT(11)) RETURNS INT(11) BEGIN
+   DECLARE x INT;
+   SET x = (SELECT COUNT(*) FROM estudiante WHERE semestre = par);
+   RETURN x;
+END$$
+
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estudiante`
+--
+
+CREATE TABLE `estudiante` (
+  `codigo` varchar(15) DEFAULT NULL,
+  `nombre` varchar(25) DEFAULT NULL,
+  `apellido` varchar(30) DEFAULT NULL,
+  `programa` varchar(50) DEFAULT NULL,
+  `semestre` int(11) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `telefono` varchar(15) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `estudiante`
+--
+
+INSERT INTO `estudiante` (`codigo`, `nombre`, `apellido`, `programa`, `semestre`, `email`, `telefono`) VALUES
+('98022155962', 'ANDRES FELIPE', 'ALZATE GARCIA', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 1, 'danielcotecnova@gmail.com', '3166769328\r'),
+('98022155963', 'LUIS FERNANDO', 'CANO OSPINA', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 1, 'wordperfect1367@hotmail.com', '3163627441/3163'),
+('98022155964', 'JHON EDWAR', 'GIRALDO JARAMILLO', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 1, 'krlosmurillo199@gmail.com', '3183070064\r'),
+('98022155965', 'SANTIAGO', 'GIRALDO VELEZ', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 1, 'yermanmicha@gmail.com', '3004973931\r'),
+('98022155966', 'JHON MARIO', 'GUTIERREZ OBANDO', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 1, 'edwingarcia2007@hotmail.com', '3135913407\r'),
+('98022155967', 'WILSON ANDRES', 'MACIAS SALDARRIAGA', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 1, 'fercho1286@outlook.es', '3202503500\r'),
+('98022155968', 'JUAN FELIPE', 'MARIN ARENAS', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 1, 'miguelpd80@gmail.com', '3147400868/2098'),
+('98022155969', 'NATALIA', 'PENILLA OSPINA', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 1, 'adrianvc9302@hotmail.com', '3117635987/3217'),
+('98022155970', 'JOULINNE ANDREA', 'RAMIREZ TABORDA', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 1, 'coflan@outlook.com', '3104447211\r'),
+('98022155971', 'CRISTIAN', 'RESTREPO ZULUAGA', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 1, 'luisfernandocano4@hotmail.com', '3218884470/3206'),
+('98022155972', 'DANY JOHANNA', 'SANTANA ANGULO', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 1, 'jegiraldoj@outlook.com', '3152977534/3183'),
+('98022155973', 'YENIFER ALEJANDRA', 'VALENCIA RINCON', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 1, 'SYVELEZ44@GMAIL.COM', '3126757742/2177'),
+('98022155974', 'IVAN DANIEL', 'VALENCIA CARVAJAL', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 1, 'm.aira1997@hotmail.es', '2137836/3113706'),
+('98022155975', 'DANIEL FELIPE', 'CASTA¥O JARAMILLO', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 2, 'donnyth_03@hotmail.com', '3122023767/2144'),
+('98022155976', 'ALEJANDRO', 'GOMEZ BUENAVENTURA', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 2, 'juanfelipemarin3@outlook.com', '3213221807\r'),
+('98022155977', 'CARLOS ALBERTO', 'MURILLO RESTREPO', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 2, 'nataliapenilla91@hotmail.com', '3207593425\r'),
+('98022155978', 'HERMAN', 'COLLAZOS CASTA¥EDA', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 3, 'joulinne@hotmail.com', '2092303/3104463'),
+('98022155979', 'EDWIN JOAN', 'GARCIA RODRIGUEZ', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 3, 'cristian.c.z@hotmail.com', '2124783/3205607'),
+('98022155980', 'FERNEY ALBERTO', 'MONTENEGRO PALACIOS', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 3, 'danyjohana321@gmail.com', '3128266975/3217'),
+('98022155981', 'MIGUEL ANDRES', 'PATI¥O DIAZ', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 3, 'mona_319@hotmail.es', '3146796710\r'),
+('98022155982', 'ADRIAN', 'VARGAS CASTRILLON', 'TECNICO PROF. EN PROGRAMACION DE APLICACIONES INFO', 3, 'ivandaniel2094@hotmail.com', '3226424662/2098');
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
